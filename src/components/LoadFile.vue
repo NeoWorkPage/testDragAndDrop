@@ -1,6 +1,6 @@
 <template>
   <div class="load" id="dropZone">
-    <div class="load__text" v-if="show">Для загрузки, перетащите файл сюда.</div>
+    <div class="load__text" v-if="show">Для загрузки, перетащите файл в формате json сюда.</div>
     <div class="load__text" v-if="!show">Загрузка</div>
   </div>
 </template>
@@ -31,9 +31,13 @@
           const reader = new FileReader();
           reader.onloadend = function(e) {
             try {
-              const result = JSON.parse(this.result)
-              result.NameFile = files[0].name;
-              result.SizeFile = files[0].size;
+              const result = {
+                'result':  [JSON.parse(this.result)],
+                'NameFile': files[0].name,
+                'SizeFile': files[0].size
+              }
+
+              console.log(result)
               self.show = true;
               self.$store.commit('pushItem', { type: 'loaderFile', items: result})
             } catch (err) {
