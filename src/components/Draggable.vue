@@ -1,5 +1,5 @@
 <template>
-  <transition name="opacity" v-show="show" mode="out-in">
+  <transition name="opacity" v-if="show" mode="out-in">
     <div class="drag">
 
       <div class="drag__area" v-if="list.length">
@@ -9,7 +9,9 @@
           <a class="button" :href="'data: text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(list)) " download="data.json">Скачать JSON</a>
       </div>
       <div class="drag__draggable">
-        <h3>Добавленные файлы</h3>
+        <h3>Добавленные файлы </br>
+            для скачивания
+        </h3>
         <draggable
           v-model="list"
           :options="{group:'people'}"
