@@ -1,12 +1,14 @@
 
 const state = {
 
+  loaderFile:[]
+
 };
 
 
 // actions
 const actions = {
-  results(state){
+  loaderFile(state){
 
     state.commit('results', { type: 'results', items: response.data});
 
