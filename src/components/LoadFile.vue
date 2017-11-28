@@ -31,13 +31,13 @@
           const reader = new FileReader();
           reader.onloadend = function(e) {
             try {
+              const arr = JSON.parse(this.result)
               const result = {
-                'result':  [JSON.parse(this.result)],
+                'result':  [arr],
                 'NameFile': files[0].name,
                 'SizeFile': files[0].size
               }
 
-              console.log(result)
               self.show = true;
               self.$store.commit('pushItem', { type: 'loaderFile', items: result})
             } catch (err) {
