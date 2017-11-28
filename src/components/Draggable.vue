@@ -6,7 +6,7 @@
           <pre>
             {{listFile}}
           </pre>
-          <a class="button" :href="'data: text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(listArea)) " download="data.json">Скачать JSON</a>
+          <a class="button" :href="'data: text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(listFile)) " download="data.json">Скачать JSON</a>
       </div>
 
       <div class="drag__normal">
@@ -47,21 +47,11 @@
       listFile(){
         return this.$store.state.loadFile.loaderFile
       },
-      listArea(){
-        return this.$store.state.loadFile.listArea
-      }
     },
     methods:{
       removeJob: function(index) {
-        // Remove job from GUI
-        console.log(index)
         this.$store.commit('spliceItem', { type: 'loaderFile', items: index })
-//        this.list.splice(index, 1);
       }
     }
   }
 </script>
-
-<style scoped>
-
-</style>
