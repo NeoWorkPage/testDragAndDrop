@@ -2,39 +2,22 @@
   <transition name="opacity" v-if="show" mode="out-in">
     <div class="drag">
 
-      <div class="drag__area" v-if="list.length">
+      <div class="drag__area" >
           <pre>
-            {{list}}
+            {{listFile}}
           </pre>
-          <a class="button" :href="'data: text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(list)) " download="data.json">Скачать JSON</a>
+          <a class="button" :href="'data: text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(listArea)) " download="data.json">Скачать JSON</a>
       </div>
-      <div class="drag__draggable">
-        <h3>Добавленные файлы </br>
-            для скачивания
-        </h3>
-        <draggable
-          v-model="list"
-          :options="{group:'people'}"
-          class="dragArea">
+
+      <div class="drag__normal">
+        <h3>Полный список файлов</h3>
+        <div class="dragArea">
           <div class="dragArea_item" v-for="(element, index) in list">
             <span class="dragArea_item-close" @click="removeJob(index)">x</span>
             {{element.NameFile}}
             <span class="dragArea_item-size">{{ element.SizeFile }} Байт</span>
           </div>
-        </draggable>
-      </div>
-
-      <div class="drag__normal">
-        <h3>Полный список файлов</h3>
-        <draggable
-          v-model="list2"
-          :options="{group:{ name:'people',  pull:'clone', put:false }}"
-          class="dragArea">
-          <div class="dragArea_item" v-for="element in list2">
-            {{element.NameFile}}
-            <span class="dragArea_item-size">{{ element.SizeFile }} Байт</span>
-          </div>
-        </draggable>
+        </div>
       </div>
     </div>
   </transition>
@@ -48,7 +31,6 @@
         show: false,
         textArea: '',
         list: [],
-        list2: [],
         data: ''
       }
     },
@@ -57,20 +39,24 @@
     },
     watch: {
       listFile(now){
-        this.list2 = now
+        this.list = now
         this.show = true
-        this.textArea = JSON.stringify(now, null, 2)
       }
     },
     computed: {
       listFile(){
         return this.$store.state.loadFile.loaderFile
+      },
+      listArea(){
+        return this.$store.state.loadFile.listArea
       }
     },
     methods:{
       removeJob: function(index) {
         // Remove job from GUI
-        this.list.splice(index, 1);
+        console.log(index)
+        this.$store.commit('spliceItem', { type: 'loaderFile', items: index })
+//        this.list.splice(index, 1);
       }
     }
   }

@@ -1,7 +1,8 @@
 
 const state = {
 
-  loaderFile:[]
+  loaderFile:[],
+  listArea:[]
 
 };
 
@@ -29,6 +30,9 @@ const mutations = {
   },
   pushItem(state, {type, items}) {
     state[type] = state[type].concat(items)
+  },
+  spliceItem(state, {type, items}) {
+     state[type].splice(items, 1)
   },
 
 };
